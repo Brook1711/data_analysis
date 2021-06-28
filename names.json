@@ -1,0 +1,549 @@
+[
+    {
+        "frame": {
+            "level": "easy",
+            "data": {
+                "successRate": 1,
+                "minJumps": 2,
+                "jumps": 2,
+                "path": [
+                    2,
+                    0,
+                    1
+                ]
+            }
+        }
+    },
+    {
+        "frame": {
+            "level": "easy",
+            "data": {
+                "successRate": 1,
+                "minJumps": 2,
+                "jumps": 2,
+                "path": [
+                    2,
+                    0,
+                    1
+                ]
+            }
+        }
+    },
+    {
+        "frame": {
+            "level": "easy",
+            "data": [
+                "00",
+                "01",
+                "02",
+                "05"
+            ]
+        }
+    },
+    {
+        "frame": {
+            "level": "medium",
+            "data": [
+                "00",
+                "01",
+                "02",
+                "03"
+            ]
+        }
+    },
+    {
+        "frame": {
+            "level": "easy",
+            "data": [
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    1
+                ],
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1
+                ]
+            ]
+        }
+    },
+    {
+        "frame": {
+            "level": "easy",
+            "data": [
+                "B_A",
+                "C_A"
+            ]
+        }
+    },
+    {
+        "frame": {
+            "level": "medium",
+            "data": [
+                "B_A",
+                "C_A",
+                "G_F",
+                "D_B",
+                "E_B"
+            ]
+        }
+    },
+    {
+        "frame": {
+            "level": "easy",
+            "data": [
+                [
+                    [
+                        0,
+                        10
+                    ],
+                    [
+                        0,
+                        11
+                    ],
+                    [
+                        1,
+                        11
+                    ]
+                ],
+                [
+                    [
+                        0,
+                        1
+                    ],
+                    [
+                        0,
+                        2
+                    ],
+                    [
+                        1,
+                        2
+                    ]
+                ],
+                [
+                    [
+                        0,
+                        4
+                    ],
+                    [
+                        0,
+                        5
+                    ],
+                    [
+                        1,
+                        5
+                    ]
+                ],
+                [
+                    [
+                        0,
+                        6
+                    ],
+                    [
+                        0,
+                        7
+                    ],
+                    [
+                        1,
+                        7
+                    ]
+                ]
+            ]
+        }
+    },
+    {
+        "frame": {
+            "level": "medium",
+            "data": [
+                [
+                    [
+                        0,
+                        4
+                    ],
+                    [
+                        1,
+                        4
+                    ],
+                    [
+                        2,
+                        4
+                    ],
+                    [
+                        2,
+                        5
+                    ]
+                ],
+                [
+                    [
+                        1,
+                        0
+                    ],
+                    [
+                        2,
+                        0
+                    ],
+                    [
+                        3,
+                        0
+                    ],
+                    [
+                        3,
+                        1
+                    ]
+                ],
+                [
+                    [
+                        0,
+                        1
+                    ],
+                    [
+                        1,
+                        1
+                    ],
+                    [
+                        2,
+                        1
+                    ],
+                    [
+                        2,
+                        2
+                    ]
+                ],
+                [
+                    [
+                        2,
+                        3
+                    ],
+                    [
+                        3,
+                        3
+                    ],
+                    [
+                        4,
+                        3
+                    ],
+                    [
+                        4,
+                        4
+                    ]
+                ],
+                [
+                    [
+                        3,
+                        2
+                    ],
+                    [
+                        4,
+                        2
+                    ],
+                    [
+                        5,
+                        2
+                    ],
+                    [
+                        5,
+                        3
+                    ]
+                ]
+            ]
+        }
+    },
+    {
+        "frame": {
+            "level": "easy",
+            "data": [
+                "05_06",
+                "09_02"
+            ]
+        }
+    },
+    {
+        "frame": {
+            "level": "medium",
+            "data": [
+                "v_16_v_1",
+                "v_12_v_6",
+                "v_2_v_14"
+            ]
+        }
+    },
+    {
+        "frame": {
+            "level": "easy",
+            "data": [
+                [
+                    {
+                        "row": 0,
+                        "col": 0
+                    },
+                    {
+                        "row": 1,
+                        "col": 2
+                    },
+                    {
+                        "row": 2,
+                        "col": 1
+                    },
+                    {
+                        "row": 0,
+                        "col": 2
+                    },
+                    {
+                        "row": 2,
+                        "col": 4
+                    }
+                ]
+            ]
+        }
+    },
+    {
+        "frame": {
+            "level": "medium",
+            "data": [
+                [
+                    null,
+                    null,
+                    {
+                        "row": 1,
+                        "col": 3
+                    },
+                    {
+                        "row": 1,
+                        "col": 1
+                    },
+                    {
+                        "row": 0,
+                        "col": 4
+                    }
+                ]
+            ]
+        }
+    },
+    {
+        "frame": {
+            "level": "easy",
+            "data": [
+                2,
+                1
+            ]
+        }
+    },
+    {
+        "frame": {
+            "level": "medium",
+            "data": [
+                1,
+                2,
+                1,
+                2,
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "frame": {
+            "level": "easy",
+            "data": {
+                "stamps": [
+                    1,
+                    0,
+                    1,
+                    2
+                ],
+                "start": 1,
+                "end": 16,
+                "selected": true
+            }
+        }
+    },
+    {
+        "frame": {
+            "level": "medium",
+            "data": {
+                "stamps": [
+                    2,
+                    1,
+                    0,
+                    1,
+                    0
+                ],
+                "start": 1,
+                "end": 5,
+                "selected": true
+            }
+        }
+    },
+    {
+        "frame": {
+            "level": "hard",
+            "data": {
+                "stamps": [
+                    0,
+                    1,
+                    0,
+                    2
+                ],
+                "start": 1,
+                "end": 5,
+                "selected": true
+            }
+        }
+    },
+    {
+        "frame": {
+            "level": "easy",
+            "data": {
+                "rotation": [
+                    [
+                        2,
+                        2,
+                        2
+                    ]
+                ],
+                "lowered": null
+            }
+        }
+    },
+    {
+        "frame": {
+            "level": "medium",
+            "data": {
+                "rotation": [
+                    [
+                        2,
+                        2,
+                        2,
+                        2,
+                        2,
+                        2
+                    ]
+                ],
+                "lowered": null
+            }
+        }
+    },
+    {
+        "frame": {
+            "level": "hard",
+            "data": {
+                "rotation": [
+                    [
+                        null,
+                        null,
+                        0,
+                        3,
+                        3,
+                        0
+                    ],
+                    [
+                        3,
+                        2,
+                        0,
+                        null,
+                        2,
+                        null
+                    ],
+                    [
+                        null,
+                        0,
+                        null,
+                        null,
+                        2,
+                        null
+                    ],
+                    [
+                        1,
+                        2,
+                        0,
+                        1,
+                        null,
+                        null
+                    ]
+                ],
+                "lowered": null
+            }
+        }
+    },
+    {
+        "frame": {
+            "level": "easy",
+            "data": {
+                "sequence": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "transformation": [
+                    [
+                        0
+                    ],
+                    [
+                        0,
+                        1
+                    ]
+                ]
+            }
+        }
+    },
+    {
+        "frame": {
+            "level": "medium",
+            "data": {
+                "sequence": [
+                    0
+                ],
+                "transformation": [
+                    [
+                        0,
+                        1
+                    ],
+                    [
+                        1,
+                        0
+                    ]
+                ]
+            }
+        }
+    }
+]
