@@ -10,6 +10,7 @@ from pandas.core.indexes import interval
 
 class data_analysis:
     def __init__(self, df) -> None:
+        self.problem_num = 23
         self.df = df
         self.row_num = len(df)
         self.ndf = 0
@@ -62,21 +63,28 @@ class data_analysis:
         total_sec = (stop_time - start_time).seconds
         return total_sec
     
+    def create_new_df(self):
+        twoD_list = []
+        for row in range(self.row_num):
+            ans_dic_list = self.df.loc[row, 'ans']
+            twoD_list.append(ans_dic_list)
+        return twoD_list
+    
     def plot(self):
         s1 = np.random.RandomState(1)
         x = s1.randn(1000)
-        data = [go.Histogram(x=x,
-                            histnorm = 'probability')] 
-        layout = go.Layout(margin = dict( l = 0,
-                                            r = 0,
-                                            b = 0,
-                                            t = 0)
-                            )
+        data = [go.Histogram(x=x)] 
+        layout={"title": "学生用时分布", 
+                                       "xaxis_title": "学生用时，单位秒",
+                                       "yaxis_title": "学生个数占比",
+                                       # x轴坐标倾斜60度
+                                       "xaxis": {"tickangle": 60}
+                                      }
         fig = go.Figure(data=data,layout=layout)
-        plot(fig,filename="/plot/vector.html",auto_open=False,image='png',image_height=800,image_width=1500)
+        plot(fig,filename="./plot/vector.html",auto_open=False,image='png',image_height=800,image_width=1500)
         offline.iplot(fig) 
         return 0
-
+    
 if __name__ == '__main__':
     df = pd.read_excel('./data/data.xlsx')  
     data_entity = data_analysis(df)
