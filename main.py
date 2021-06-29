@@ -21,7 +21,7 @@ class data_analysis:
         self.ndf_list = self.divide_ndf()
         self.group_list = self.group_by()
         self.count_df_list = self.count_group()
-        self.addition_df = self.get_addition()
+        self.addition_list, self.success_df = self.get_addition()
         # self.output_df = 0
         self.output()
         print('init complete')
@@ -120,14 +120,16 @@ class data_analysis:
         return group_list
 
     def get_addition(self):
+        addition_list = []
         accuracy_list = []
         for i, df in enumerate(self.count_df_list):
             additional_infor_df = pd.DataFrame({'list':[ast.literal_eval(index) for index in df.index]})
+            additional_infor_df.insert(len(additional_infor_df.columns), 'count', list( df.iloc[:, 0]))
+            addition_list.append(additional_infor_df)
             if i in self.with_successrate:
                 additional_infor_df.insert(len(additional_infor_df.columns), 'success', ['0' if l==None else str(l[0]) for l in additional_infor_df.iloc[:,0] ])
-                additional_infor_df.insert(len(additional_infor_df.columns), 'count', list( df.iloc[:, 0]))
                 accuracy_list.append(additional_infor_df.groupby('success')['count'].sum().iloc[1]/self.row_num)
-        return pd.DataFrame({'problem_num':self.with_successrate, 'accuracy': accuracy_list})
+        return addition_list, pd.DataFrame({'problem_num':self.with_successrate, 'accuracy': accuracy_list})
 
     def count_group(self):
         count_df_list = []
@@ -167,7 +169,7 @@ class data_analysis:
         self.plot_problem()
         for i, df in enumerate(self.ndf_list):
             df.iloc[:, 1].to_excel('./output/' + str(self.name)+'/' +str(i) + '.xlsx')
-        for i, df in enumerate(self.count_df_list):
+        for i, df in enumerate(self.addition_list):
             df.to_excel('./output/' + str(self.name)+'/' +str(i) + '_count.xlsx')
     
 if __name__ == '__main__':
