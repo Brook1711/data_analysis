@@ -131,7 +131,7 @@ class data_analysis:
                                       }
         fig = go.Figure(data=data,layout=layout)
         plot(fig,filename="./plot/"+self.name+"/time.html",auto_open=False,image='png',image_height=800,image_width=1500)
-        offline.iplot(fig) 
+        # offline.iplot(fig) 
         return 0
 
     def plot_problem(self):
@@ -144,7 +144,7 @@ class data_analysis:
                                       }
         fig = go.Figure(data=data,layout=layout)
         plot(fig,filename="./plot/"+self.name+"/plot_problem.html",auto_open=False,image='png',image_height=800,image_width=1500)
-        offline.iplot(fig) 
+        # offline.iplot(fig) 
         return 0
     
     def output(self):
