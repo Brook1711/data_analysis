@@ -11,6 +11,7 @@ from pandas.core.indexes import interval
 class data_analysis:
     def __init__(self, df, name = 'default') -> None:
         self.name = name
+        self.with_successrate = [0, 1]
         self.problem_num = 23
         self.df = df
         self.row_num = len(df)
@@ -20,6 +21,7 @@ class data_analysis:
         self.ndf_list = self.divide_ndf()
         self.group_list = self.group_by()
         self.count_df_list = self.count_group()
+        self.addition_df = self.get_addition()
         # self.output_df = 0
         self.output()
         print('init complete')
@@ -95,7 +97,6 @@ class data_analysis:
         return df_per_problom
 
     def content_to_str(self, data):
-        str_data = ''
         if data == None:
             return str(None)
         elif type(data) == type([]):
@@ -118,9 +119,15 @@ class data_analysis:
             group_list.append(df_temp)
         return group_list
 
-    def get_ccuracy(self):
-
-        return 0
+    def get_addition(self):
+        accuracy_list = []
+        for i, df in enumerate(self.count_df_list):
+            additional_infor_df = pd.DataFrame({'list':[ast.literal_eval(index) for index in df.index]})
+            if i in self.with_successrate:
+                additional_infor_df.insert(len(additional_infor_df.columns), 'success', ['0' if l==None else str(l[0]) for l in additional_infor_df.iloc[:,0] ])
+                additional_infor_df.insert(len(additional_infor_df.columns), 'count', list( df.iloc[:, 0]))
+                accuracy_list.append(additional_infor_df.groupby('success')['count'].sum().iloc[1]/self.row_num)
+        return pd.DataFrame({'problem_num':self.with_successrate, 'accuracy': accuracy_list})
 
     def count_group(self):
         count_df_list = []
