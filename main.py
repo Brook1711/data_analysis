@@ -19,6 +19,7 @@ class data_analysis:
         self.ndf = pd.DataFrame(self.create_new_df())
         self.ndf_list = self.divide_ndf()
         self.group_list = self.group_by()
+        self.count_df_list = self.count_group()
         # self.output_df = 0
         self.output()
         print('init complete')
@@ -121,6 +122,13 @@ class data_analysis:
 
         return 0
 
+    def count_group(self):
+        count_df_list = []
+        for group in self.group_list:
+            count_df_list.append(group.count())
+
+        return count_df_list
+
     def plot(self):
         data = [go.Histogram(x=list(self.df.loc[:,'interval']))] 
         layout={"title": "学生用时分布", 
@@ -152,6 +160,8 @@ class data_analysis:
         self.plot_problem()
         for i, df in enumerate(self.ndf_list):
             df.iloc[:, 1].to_excel('./output/' + str(self.name)+'/' +str(i) + '.xlsx')
+        for i, df in enumerate(self.count_df_list):
+            df.to_excel('./output/' + str(self.name)+'/' +str(i) + '_count.xlsx')
     
 if __name__ == '__main__':
     df = pd.read_excel('./data/data.xlsx')  
