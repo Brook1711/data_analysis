@@ -9,7 +9,8 @@ import plotly.offline as offline
 from pandas.core.indexes import interval
 
 class data_analysis:
-    def __init__(self, df) -> None:
+    def __init__(self, df, name = 'default') -> None:
+        self.name = name
         self.problem_num = 23
         self.df = df
         self.row_num = len(df)
@@ -18,6 +19,8 @@ class data_analysis:
         self.ndf = pd.DataFrame(self.create_new_df())
         self.ndf_list = self.divide_ndf()
         self.group_list = self.group_by()
+        # self.output_df = 0
+        self.output()
         print('init complete')
 
     def remove_str_per_row(self, data_per_row):
@@ -81,10 +84,31 @@ class data_analysis:
         df_temp = self.ndf_list[index]
         df_str_list = []
         for j in range(len(df_temp)):
-            df_str_list.append(str(df_temp.iloc[j, 0]))
+            ndf_index_j = df_temp.iloc[j, 0]
+            if ndf_index_j == None:
+                df_str_list.append(str(None))
+            else:
+                df_str_list.append(self.content_to_str(ndf_index_j))
         df_temp.insert(1, 'ans_str', df_str_list)
         df_per_problom = df_temp.groupby('ans_str')
         return df_per_problom
+
+    def content_to_str(self, data):
+        str_data = ''
+        if data == None:
+            return str(None)
+        elif type(data) == type([]):
+            return self.data_to_str(data)
+        elif 'data' in data.keys():
+            return self.data_to_str(data['data'])
+        else:
+            return self.data_to_str(data)
+
+    def data_to_str(self, data):
+        if type(data) == type({}):
+            return str(list(data.values()))
+        else:
+            return str(data)
 
     def group_by(self):
         group_list = []
@@ -92,6 +116,10 @@ class data_analysis:
             df_temp = self.group_by_per_problem(i)
             group_list.append(df_temp)
         return group_list
+
+    def get_ccuracy(self):
+
+        return 0
 
     def plot(self):
         data = [go.Histogram(x=list(self.df.loc[:,'interval']))] 
@@ -102,12 +130,12 @@ class data_analysis:
                                        "xaxis": {"tickangle": 60}
                                       }
         fig = go.Figure(data=data,layout=layout)
-        plot(fig,filename="./plot/vector.html",auto_open=False,image='png',image_height=800,image_width=1500)
+        plot(fig,filename="./plot/"+self.name+"/time.html",auto_open=False,image='png',image_height=800,image_width=1500)
         offline.iplot(fig) 
         return 0
 
     def plot_problem(self):
-        data = [go.Bar(x = range(self.problem_num), y = [len(list(group)) for group in self.group_list])] 
+        data = [go.Bar(x = list(range(self.problem_num)), y = [len(list(group)) for group in self.group_list])] 
         layout={"title": "不同题目的编码数量", 
                                        "xaxis_title": "题目编号",
                                        "yaxis_title": "编码个数",
@@ -115,12 +143,20 @@ class data_analysis:
                                        "xaxis": {"tickangle": 60}
                                       }
         fig = go.Figure(data=data,layout=layout)
-        plot(fig,filename="./plot/vector.html",auto_open=False,image='png',image_height=800,image_width=1500)
+        plot(fig,filename="./plot/"+self.name+"/plot_problem.html",auto_open=False,image='png',image_height=800,image_width=1500)
         offline.iplot(fig) 
         return 0
     
+    def output(self):
+        self.plot()
+        self.plot_problem()
+        for i, df in enumerate(self.ndf_list):
+            df.iloc[:, 1].to_excel('./output/' + str(self.name)+'/' +str(i) + '.xlsx')
+    
 if __name__ == '__main__':
     df = pd.read_excel('./data/data.xlsx')  
+    df_junior = pd.read_excel('./data/junior.xlsx')  
+    df_senior = pd.read_excel('./data/senior.xlsx') 
     data_entity = data_analysis(df)
-    a = data_entity.group_by()
-    print(np.shape(a))
+    data_entity_junior = data_analysis(df = df_junior, name = 'junior')
+    data_entity_senior = data_analysis(df = df_senior, name = 'senior')
