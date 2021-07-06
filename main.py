@@ -126,7 +126,7 @@ class data_analysis:
         for i, df in enumerate(self.count_df_list):
             additional_infor_df = pd.DataFrame({'list':[ast.literal_eval(index) for index in df.index]})
             additional_infor_df.insert(len(additional_infor_df.columns), 'count', list( df.iloc[:, 0]))
-            addition_list.append(additional_infor_df)
+            
             if i in self.with_successrate:
                 additional_infor_df.insert(len(additional_infor_df.columns), 'success', ['0' if l==None else str(l[0]) for l in additional_infor_df.iloc[:,0] ])
                 accuracy_list.append(additional_infor_df.groupby('success')['count'].sum().iloc[1]/self.row_num)
@@ -146,7 +146,30 @@ class data_analysis:
                 verify_list = [[[1, 0], [2, 0], [3, 0], [3, 1]], [[0, 1], [1, 1], [2, 1], [2, 2]], [[3, 2], [4, 2], [5, 2], [5, 3]], [[2, 3], [3, 3], [4, 3], [4, 4]], [[0, 4], [1, 4], [2, 4], [2, 5]]]
                 additional_infor_df.insert(len(additional_infor_df.columns), 'success', ['1' if l!= None and len(l)==5 and verify_list[0] in l  and verify_list[1] in l  and verify_list[2] in l  and verify_list[3] in l  and verify_list[4] in l else '0' for l in additional_infor_df.iloc[:,0] ])
                 accuracy_list.append(additional_infor_df.groupby('success')['count'].sum().iloc[1]/self.row_num)
-        return addition_list, pd.DataFrame({'problem_num':self.with_successrate + [2,3] + [5]+[6]+[7]+[8], 'accuracy': accuracy_list}),[0,1]+[2,3]+[5]+[6]+[7]+[8]
+            elif i in [9]:
+                for row in range(len(additional_infor_df)):
+                    list_temp = additional_infor_df.loc[row,'list']
+                    if list_temp!=None and len(list_temp)==2:
+                        if list_temp[0][0:2] > list_temp[0][-2:]:
+                            list_temp[0] = list_temp[0][-2:] + '_' + list_temp[0][0:2]
+                        if list_temp[1][0:2] > list_temp[1][-2:]:
+                            list_temp[1] = list_temp[1][-2:] + '_' + list_temp[1][0:2]
+                        if list_temp[0] > list_temp[1]:
+                            additional_infor_df._set_value(row,'list', str([list_temp[1], list_temp[0]]))
+                        else:
+                            additional_infor_df._set_value(row,'list', str(list_temp))
+                    else:
+                        additional_infor_df._set_value(row,'list', str(list_temp))
+                grouped = additional_infor_df.groupby('list')['count'].sum()
+                additional_infor_df = pd.DataFrame({'list':[ast.literal_eval(index) for index in grouped.index]})
+                additional_infor_df.insert(len(additional_infor_df.columns), 'count', list( grouped.iloc[:]))
+                verify_list = [['02_09', '05_06']]
+                    
+
+                additional_infor_df.insert(len(additional_infor_df.columns), 'success', ['1' if l!= None and len(l)==2 and l in verify_list else '0' for l in additional_infor_df.iloc[:,0] ])
+                accuracy_list.append(additional_infor_df.groupby('success')['count'].sum().iloc[1]/self.row_num)
+            addition_list.append(additional_infor_df)
+        return addition_list, pd.DataFrame({'problem_num':self.with_successrate + [2,3] + [5]+[6]+[7]+[8]+[9], 'accuracy': accuracy_list}),[0,1]+[2,3]+[5]+[6]+[7]+[8]+[9]
 
     def count_group(self):
         count_df_list = []
