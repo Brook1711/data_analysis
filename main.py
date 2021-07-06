@@ -21,8 +21,9 @@ class data_analysis:
         self.ndf_list = self.divide_ndf()
         self.group_list = self.group_by()
         self.count_df_list = self.count_group()
-        self.addition_list, self.success_df = self.get_addition()
+        self.addition_list, self.success_df,self.problem_num_list = self.get_addition()
         # self.output_df = 0
+        
         self.output()
         print('init complete')
 
@@ -129,7 +130,23 @@ class data_analysis:
             if i in self.with_successrate:
                 additional_infor_df.insert(len(additional_infor_df.columns), 'success', ['0' if l==None else str(l[0]) for l in additional_infor_df.iloc[:,0] ])
                 accuracy_list.append(additional_infor_df.groupby('success')['count'].sum().iloc[1]/self.row_num)
-        return addition_list, pd.DataFrame({'problem_num':self.with_successrate, 'accuracy': accuracy_list})
+            elif i in [2,3]:
+                additional_infor_df.insert(len(additional_infor_df.columns), 'success', ['1' if l!= None and len(l)!=0 and l[0]=='00' else '0' for l in additional_infor_df.iloc[:,0] ])
+                accuracy_list.append(additional_infor_df.groupby('success')['count'].sum().iloc[1]/self.row_num)
+            elif i in [5]:
+                additional_infor_df.insert(len(additional_infor_df.columns), 'success', ['1' if l!= None and len(l)==2 and l[0]+l[1]=='B_AC_A' else '0' for l in additional_infor_df.iloc[:,0] ])
+                accuracy_list.append(additional_infor_df.groupby('success')['count'].sum().iloc[1]/self.row_num)
+            elif i in [6]:
+                additional_infor_df.insert(len(additional_infor_df.columns), 'success', ['1' if l!= None and len(l)==5 and l[0]+l[1]+l[2]+l[3]+l[4]=='B_AC_AG_FD_BE_B' else '0' for l in additional_infor_df.iloc[:,0] ])
+                accuracy_list.append(additional_infor_df.groupby('success')['count'].sum().iloc[1]/self.row_num)
+            elif i in [7]:
+                additional_infor_df.insert(len(additional_infor_df.columns), 'success', ['1' if l!= None and len(l)==4 and [[0,1],[0,2],[1,2]] in l and [[0,4],[0,5],[1,5]] in l and [[0,6],[0,7],[1,7]] in l and [[0,10],[0,11],[1,11]] else '0' for l in additional_infor_df.iloc[:,0] ])
+                accuracy_list.append(additional_infor_df.groupby('success')['count'].sum().iloc[1]/self.row_num)
+            elif i in [8]:
+                verify_list = [[[1, 0], [2, 0], [3, 0], [3, 1]], [[0, 1], [1, 1], [2, 1], [2, 2]], [[3, 2], [4, 2], [5, 2], [5, 3]], [[2, 3], [3, 3], [4, 3], [4, 4]], [[0, 4], [1, 4], [2, 4], [2, 5]]]
+                additional_infor_df.insert(len(additional_infor_df.columns), 'success', ['1' if l!= None and len(l)==5 and verify_list[0] in l  and verify_list[1] in l  and verify_list[2] in l  and verify_list[3] in l  and verify_list[4] in l else '0' for l in additional_infor_df.iloc[:,0] ])
+                accuracy_list.append(additional_infor_df.groupby('success')['count'].sum().iloc[1]/self.row_num)
+        return addition_list, pd.DataFrame({'problem_num':self.with_successrate + [2,3] + [5]+[6]+[7]+[8], 'accuracy': accuracy_list}),[0,1]+[2,3]+[5]+[6]+[7]+[8]
 
     def count_group(self):
         count_df_list = []
