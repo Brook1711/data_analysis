@@ -163,7 +163,7 @@ class data_analysis:
                 grouped = additional_infor_df.groupby('list')['count'].sum()
                 additional_infor_df = pd.DataFrame({'list':[ast.literal_eval(index) for index in grouped.index]})
                 additional_infor_df.insert(len(additional_infor_df.columns), 'count', list( grouped.iloc[:]))
-                verify_list = [['02_09', '05_06']]
+                verify_list = [['02_09', '05_06'],['02_05', '06_09'],['02_06', '05_09']]
                     
 
                 additional_infor_df.insert(len(additional_infor_df.columns), 'success', ['1' if l!= None and len(l)==2 and l in verify_list else '0' for l in additional_infor_df.iloc[:,0] ])
