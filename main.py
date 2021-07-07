@@ -7,6 +7,7 @@ import plotly.graph_objs as go
 from plotly.offline import plot
 import plotly.offline as offline
 from pandas.core.indexes import interval
+import re
 
 class data_analysis:
     def __init__(self, df, name = 'default') -> None:
@@ -168,8 +169,38 @@ class data_analysis:
 
                 additional_infor_df.insert(len(additional_infor_df.columns), 'success', ['1' if l!= None and len(l)==2 and l in verify_list else '0' for l in additional_infor_df.iloc[:,0] ])
                 accuracy_list.append(additional_infor_df.groupby('success')['count'].sum().iloc[1]/self.row_num)
+            elif i in [10]:
+                for row in range(len(additional_infor_df)):
+                    list_temp = additional_infor_df.loc[row, 'list']
+                
+                    if list_temp!=None:
+                        list_temp = [[int(rebuild_i) for rebuild_i in re.findall(r"\d+", rebuild)] for rebuild in list_temp]
+                        for list_mem in list_temp:
+                            list_mem.sort()
+                        list_temp.sort()
+                        additional_infor_df._set_value(row,'list', str([str(list_str[0]) + '_' + str(list_str[1]) for list_str in list_temp]))
+                    else:
+                        additional_infor_df._set_value(row,'list', str(list_temp))
+                
+                grouped = additional_infor_df.groupby('list')['count'].sum()
+                additional_infor_df = pd.DataFrame({'list':[ast.literal_eval(index) for index in grouped.index]})        
+                additional_infor_df.insert(len(additional_infor_df.columns), 'count', list( grouped.iloc[:]))
+
+                verify_list = ['2','6','12','14','15','16']
+                # success_list_temp = []
+                # for l in additional_infor_df.iloc[:,0]:
+                #     if l!=None and len(l)==3:
+                #         if re.findall(r"d+",l[0])[0] in verify_list and re.findall(r"d+",l[0])[1] in verify_list and re.findall(r"d+",l[1])[0] in verify_list and re.findall(r"d+",l[1])[1] in verify_list and re.findall(r"d+",l[2])[0] in verify_list and re.findall(r"d+",l[2])[1] in verify_list:
+                #             success_list_temp.append('1')
+                #         else:
+                #             success_list_temp.append('0')
+                #     else:
+                #         success_list_temp.append('0')
+                additional_infor_df.insert(len(additional_infor_df.columns), 'success', ['1' if l!= None and len(l)==3 and len(set([re.findall(r"\d+",l[0])[0], re.findall(r"\d+",l[0])[1], re.findall(r"\d+",l[1])[0], re.findall(r"\d+",l[1])[1], re.findall(r"\d+",l[2])[0],re.findall(r"\d+",l[2])[1]]))==6 and re.findall(r"\d+",l[0])[0] in verify_list and re.findall(r"\d+",l[0])[1] in verify_list and re.findall(r"\d+",l[1])[0] in verify_list and re.findall(r"\d+",l[1])[1] in verify_list and re.findall(r"\d+",l[2])[0] in verify_list and re.findall(r"\d+",l[2])[1] in verify_list else '0' for l in additional_infor_df.iloc[:,0] ])
+                # additional_infor_df.insert(len(additional_infor_df.columns), 'success', success_list_temp)
+                accuracy_list.append(additional_infor_df.groupby('success')['count'].sum().iloc[1]/self.row_num)
             addition_list.append(additional_infor_df)
-        return addition_list, pd.DataFrame({'problem_num':self.with_successrate + [2,3] + [5]+[6]+[7]+[8]+[9], 'accuracy': accuracy_list}),[0,1]+[2,3]+[5]+[6]+[7]+[8]+[9]
+        return addition_list, pd.DataFrame({'problem_num':self.with_successrate + [2,3] + [5]+[6]+[7]+[8]+[9]+[10], 'accuracy': accuracy_list}),[0,1]+[2,3]+[5]+[6]+[7]+[8]+[9]+[10]
 
     def count_group(self):
         count_df_list = []
