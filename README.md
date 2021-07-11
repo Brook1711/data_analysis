@@ -222,3 +222,7 @@ senior中存有高中的数据
 
 图片文件存储为：`./plot/plot_problem_10_accuracy.html`
 
+#### 第12题
+
+正确答案只有一种
+
