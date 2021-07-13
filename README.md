@@ -170,7 +170,7 @@ senior中存有高中的数据
 
 目前更新到第13题（index=12）：
 
-![image-20210711094206179](README.assets/image-20210711094206179.png)
+![image-20210713155741869](README.assets/image-20210713155741869.png)
 
 该图片文件保存为`./plot/plot_problem_accuracy.html`
 
