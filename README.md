@@ -226,9 +226,9 @@ senior中存有高中的数据
 
 正确答案只有一种
 
-#### 第14、15题对应index=18、19
+#### 第16、17题对应index=18、19
 
-第14题（供水系统1）答案应为
+第16题（供水系统1）答案应为
 
 | 正确答案：          | 总数样本数（/占比） | 初中样本数（/占比） | 高中样本数（/占比） |
 | ------------------- | ------------------- | ------------------- | ------------------- |
@@ -240,4 +240,78 @@ senior中存有高中的数据
 | [[[0, 0, 0]], None] | 42                  | 18                  | 24                  |
 | [[[2, 2, 2]], None] | 41                  | 18                  | 23                  |
 | [[[2, 0, 0]], None] | 36                  | 9                   | 27                  |
+
+![image-20210713120142733](README.assets/image-20210713120142733.png)
+
+图片文件存储为：`./plot/plot_problem_18_accuracy.html`
+
+#### 
+
+#### 第17题正确答案共64种：
+
+![image-20210713120113003](README.assets/image-20210713120113003.png)
+
+图片文件存储为：`./plot/plot_problem_19_accuracy.html`
+
+#### 
+
+#### 第18题和第19题对应index=21、22
+
+第18题只有一种正确答案
+
+但是第19题可能具有多种正确答案
+
+![image-20210713144119491](README.assets/image-20210713144119491.png)
+
+将五角星编码为'0'，将三角形编码为'1'
+
+则最终的五角星三角形序列则可能有$2^9-2$种可能
+$$
+2^8+2^7+....+2^1=2^9-2
+$$
+同时，将长方形编码为1；圆形编码为0。五角星和三角形的编码有$2^4-2$种可能
+
+那么遍历这些编码，找出所有的正确编码
+
+```python
+# 所有可能的五角星（0,a）和三角形（1,b）组合
+seq_list = []
+for i in range(8):
+    for j in range(int(math.pow(2,i+1))):
+        temp=str(bin(j))[2:].zfill(i+1).replace('0','a')
+        temp = temp.replace('1', 'b')
+        seq_list.append(temp)
+# 所有可能的长方形（1）和圆形（0）组合
+trans_list = []
+for i in range(3):
+    for j in range(int(math.pow(2,i+1))):
+        trans_list.append(str(bin(j))[2:].zfill(i+1))
+# 正确序列 
+verify_str = '10100010010'
+right_ans = []
+cnt = 0
+for seq in seq_list:
+    for star in trans_list:
+        for trian in trans_list:
+            cnt +=1
+            if seq.replace('a', star).replace('b', trian) == verify_str:
+                right_ans.append([seq.replace('a','0').replace('b','1'), star, trian])
+right_ans
+```
+
+通过遍历，得出正确答案只有两种：
+
+[['0011010', '10', '0']
+
+<img src="README.assets/image-20210713152150571.png" alt="image-20210713152150571" style="zoom:50%;" />
+
+['1100101', '0', '10']]
+
+<img src="README.assets/image-20210713152107000.png" alt="image-20210713152107000" style="zoom:50%;" />
+
+![image-20210713154401783](README.assets/image-20210713154401783.png)
+
+图片文件存储为：`./plot/plot_problem_22_accuracy.html`
+
+#### 第20、21、22对应index=16、17、20
 
